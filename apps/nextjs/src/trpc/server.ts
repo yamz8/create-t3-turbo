@@ -59,3 +59,14 @@ export const api = createTRPCClient<typeof appRouter>({
         }),
   ],
 });
+
+const trpc = async () => appRouter.createCaller(await createContext());
+
+async function MyComponent() {
+  const _post1 = await (await trpc()).post.all();
+  //     ^?
+  const _post2 = await api.post.all.query();
+  //     ^?
+
+  return null;
+}
